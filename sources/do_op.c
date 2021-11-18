@@ -6,9 +6,39 @@
 */
 
 #include "./../includes/bsprintf.h"
-#include "./include/struct.h"
+#include "./../includes/struct.h"
 #include <stdlib.h>
 #include <stdarg.h>
+
+void fill_operations2(calculator *operations)
+{
+    operations[8].op = 'G';
+    operations[8].ptr = &function_cg;
+    operations[9].op = 'x';
+    operations[9].ptr = &function_x;
+    operations[10].op = 'X';
+    operations[10].ptr = &function_cx;
+    operations[11].op = 'p';
+    operations[11].ptr = &function_p;
+    operations[12].op = 'u';
+    operations[12].ptr = &function_u;
+    operations[13].op = 'o';
+    operations[13].ptr = &function_o;
+    operations[14].op = 'S';
+    operations[14].ptr = &function_cs;
+    operations[15].op = 'B';
+    operations[15].ptr = &function_cb;
+    operations[16].op = '%';
+    operations[16].ptr = &function_module;
+    operations[17].op = ' ';
+    operations[17].ptr = &function_space;
+    operations[18].op = '+';
+    operations[18].ptr = &function_plus;
+    operations[19].op = '-';
+    operations[19].ptr = &function_minous;
+    operations[20].op = '#';
+    operations[20].ptr = &function_hashtag;
+}
 
 void fill_operations(calculator *operations)
 {
@@ -17,44 +47,31 @@ void fill_operations(calculator *operations)
     operations[1].op = 'c';
     operations[1].ptr = &function_c;
     operations[2].op = 'd';
-    operations[2].ptr = &function_d;
+    operations[2].ptr = &function_i_d;
     operations[3].op = 'i';
-    operations[3].ptr = &function_i;
+    operations[3].ptr = &function_i_d;
     operations[4].op = 'e';
     operations[4].ptr = &function_e;
     operations[5].op = 'E';
-    operations[5].ptr = &function_E;
+    operations[5].ptr = &function_ce;
     operations[6].op = 'f';
     operations[6].ptr = &function_f;
     operations[7].op = 'g';
     operations[7].ptr = &function_g;
-    operations[8].op = 'G';
-    operations[8].ptr = &function_G;
-    operations[9].op = 'x';
-    operations[9].ptr = &function_x;
-    operations[10].op = 'X';
-    operations[10].ptr = &function_X;
-    operations[11].op = 'P';
-    operations[11].ptr = &function_P;
-    operations[12].op = 'G';
-    operations[12].ptr = &function_G;
-    operations[13].op = 'u';
-    operations[13].ptr = &function_u;
-    operations[14].op = 'o';
-    operations[14].ptr = &function_o;
+    fill_operations2(operations);
 }
 
-int do_op(va_list list, char type) 
+int do_op(va_list list, char type)
 {
     int i = 0;
-    calculator operations[15];
+    calculator operations[21];
 
     fill_operations(operations);
-    while (i < 15) {
+    while (i < 21) {
         if (type == operations[i].op)
-            (*(operations[i].ptr))(va_list list);
+            (*(operations[i].ptr))(list);
         i++;
     }
-    
+
     return (0);
 }

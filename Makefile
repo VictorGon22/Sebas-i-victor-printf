@@ -4,24 +4,35 @@
 ## File description:
 ## 
 
+OBJ = $(SRCS_C:.c=.o)
+
+LIB = -L./lib/my -lmy
+
 SRC		=	 sources/
 
-SRC_C	=	sum_numbers.c		\
-			disp_stdarg.c		\
-			sum_strings_length.c\
-			my_put_nbr.c		\
-			my_putchar.c		\
-			my_putstr.c
+SRC_C	=	my_printf.c				\
+			do_op.c					\
+			functions_ce_f.c		\
+			functions_cg_x_cs_g.c	\
+			functions_cx_p_o_u_cb.c	\
+			functions_id.c			\
+			functions_s_c_e.c		\
+			main.c					\
+			my_put_nbr.c			\
+			my_putstr.c				\
+			my_putchar.c			\
+			my_revstr.c
 
 SRCS_C	= 	$(addprefix $(SRC), $(SRC_C))
-OBJ	= 	$(SRCS_C:.c=.o)
 
-NAME	=	libmy.a
+CFLAGS = -I./includes
 
-$(NAME):	$(OBJ)
-			ar rc $(NAME) $(OBJ)
+NAME = print
 
-all:	$(NAME)
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	gcc -W -Werror -Wextra -Wall $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
@@ -30,7 +41,4 @@ fclean: clean
 	rm -f $(NAME)
 
 re:	fclean all
-
-##unit_tests:
-
-##run_tests:
+	make clean
