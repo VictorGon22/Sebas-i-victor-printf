@@ -5,21 +5,20 @@
 ** disp_stdarg.c
 */
 
-#include "./../includes/bsprintf.h"
+#include "./../includes/my_printflib.h"
 
 int inbase(char character)
 {
     char base[] = "GxXpuoSB%scdieEfg +-#";
     int i = 0;
 
-    while(base[i] != '\0') {
-        if(character == base[i])
+    while (base[i] != '\0') {
+        if (character == base[i])
             return (1);
         i++;
     }
     return (0);
 }
-
 
 void my_printf(char *s, ...)
 {
@@ -35,15 +34,22 @@ void my_printf(char *s, ...)
             i++;
             while (s[i] != '\0' && !isalpha(s[i]) && s[i] != '%') {
                 if (inbase(s[i])) {
-                    do_op(copy, s[i]);
+                    func_pointer(copy, s[i]);
                 }
                 i++;
             }
-            do_op(list, s[i]);
+            func_pointer(list, s[i]);
         } else
             my_putchar(s[i]);
         i++;
     }
+    my_putchar('\n');
     va_end(list);
     va_end(copy);
+}
+
+int main ()
+{
+    my_printf("%o", 5349);
+    return (0);
 }
